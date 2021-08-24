@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.neighbour_list.ProfileNeighbourActivity">
+    tools:context=".ui.neighbour_list.ProfileNeighbourActivity"
+    android:id="@+id/profileLayout">
 
     <android.support.v7.widget.CardView
         android:id="@+id/profile_header"
@@ -91,7 +92,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_body_name"
                 app:layout_constraintBottom_toTopOf="@+id/profile_body_phone_icon"
-                app:layout_constraintEnd_toStartOf="@+id/profil_body_localisation_content"
+                app:layout_constraintEnd_toStartOf="@+id/profile_body_localisation_content"
                 app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
             <ImageView
@@ -117,7 +118,7 @@
                 app:srcCompat="@android:drawable/ic_menu_share" />
 
             <TextView
-                android:id="@+id/profil_body_localisation_content"
+                android:id="@+id/profile_body_localisation_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
