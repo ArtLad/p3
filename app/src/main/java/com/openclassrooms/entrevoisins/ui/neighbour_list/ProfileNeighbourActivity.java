@@ -9,10 +9,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.DummyNeighbourApiService;
 import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
@@ -52,9 +54,9 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_neighbour);
     }
 
-    public static void navigateToProfile(View.OnClickListener activity) {
-        Intent intent = new Intent((Context) activity, ProfileNeighbourActivity.class);
-        ((Context) activity).startActivity(intent);
+    public static void navigateToProfile(Context context) {
+        Intent intent = new Intent(context, ProfileNeighbourActivity.class);
+        ActivityCompat.startActivity(context, intent, null);
     }
 
     public ImageView getHeaderAvatar() {
