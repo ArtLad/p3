@@ -56,4 +56,6 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
         TextView bodyMedia = findViewById(R.id.profile_body_sociale_content);
         bodyMedia.setText(neighbourMedia);
     }
+
+
 }
