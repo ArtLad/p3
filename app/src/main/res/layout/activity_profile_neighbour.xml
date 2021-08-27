@@ -24,10 +24,11 @@
                 android:id="@+id/profile_header_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@color/cardview_dark_background" />
 
             <!--<ImageButton
                 android:id="@+id/profile_header_return"
