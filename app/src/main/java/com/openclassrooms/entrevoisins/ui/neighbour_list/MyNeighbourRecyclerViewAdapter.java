@@ -76,7 +76,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
         public ViewHolder(View view) {
             super(view);
-            profileLayout = new ConstraintLayout(view.getContext());
             profileLayout = view.findViewById(R.id.neighbourSelection);
             ButterKnife.bind(this, view);
         }
