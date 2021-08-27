@@ -1,27 +1,14 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.DummyNeighbourApiService;
-import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class ProfileNeighbourActivity extends AppCompatActivity {
 
@@ -29,10 +16,42 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_neighbour);
+
+        getData();
     }
 
-    public static void navigateToProfile(Context context) {
-        Intent intent = new Intent(context, ProfileNeighbourActivity.class);
-        ActivityCompat.startActivity(context, intent, null);
+    private void getData() {
+        if(getIntent().hasExtra("neighbour_url") && getIntent().hasExtra("neighbour_name")){
+
+            String neighbourUrl = getIntent().getStringExtra("neighbour_url");
+            String neighbourName = getIntent().getStringExtra("neighbour_name");
+            String neighbourAdresse = getIntent().getStringExtra("neighbour_adresse");
+            String neighbourPhone = getIntent().getStringExtra("neighbour_phone");
+            String neighbourAboutMe = getIntent().getStringExtra("neighbour_aboutMe");
+
+            setData(neighbourUrl, neighbourName, neighbourAdresse,
+                    neighbourPhone, neighbourAboutMe);
+        }
+    }
+
+    private void setData(String neighbourUrl, String neighbourName, String neighbourAdresse,
+                         String neighbourPhone, String neighbourAboutMe) {
+
+        ImageView headerAvatar = findViewById(R.id.profile_header_avatar);
+        Glide.with(this)
+                .asBitmap()
+                .load(neighbourUrl)
+                .into(headerAvatar);
+        TextView headerName = findViewById(R.id.profile_header_name);
+        headerName.setText(neighbourName);
+        TextView bodyName = findViewById(R.id.profile_body_name);
+        bodyName.setText(neighbourName);
+        TextView bodyAdresse = findViewById(R.id.profile_body_adresse);
+        bodyAdresse.setText(neighbourAdresse);
+        TextView bodyPhone = findViewById(R.id.profile_body_phone);
+        bodyPhone.setText(neighbourPhone);
+        TextView bioAboutMe = findViewById(R.id.profile_bio_corpus);
+        bioAboutMe.setText(neighbourAboutMe);
+
     }
 }

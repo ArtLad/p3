@@ -82,18 +82,18 @@
                 android:paddingRight="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/profile_body_localisation_icon"
+                app:layout_constraintBottom_toTopOf="@+id/profile_body_adresse_icon"
                 tools:text="Caroline" />
 
             <ImageView
-                android:id="@+id/profile_body_localisation_icon"
+                android:id="@+id/profile_body_adresse_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_body_name"
                 app:layout_constraintBottom_toTopOf="@+id/profile_body_phone_icon"
-                app:layout_constraintEnd_toStartOf="@+id/profile_body_localisation_content"
+                app:layout_constraintEnd_toStartOf="@+id/profile_body_adresse"
                 app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
             <ImageView
@@ -102,9 +102,9 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_body_localisation_icon"
+                app:layout_constraintTop_toBottomOf="@+id/profile_body_adresse_icon"
                 app:layout_constraintBottom_toTopOf="@+id/profile_body_sociale_icon"
-                app:layout_constraintEnd_toStartOf="@+id/profile_body_phone_content"
+                app:layout_constraintEnd_toStartOf="@+id/profile_body_phone"
                 app:srcCompat="@android:drawable/ic_menu_call" />
 
             <ImageView
@@ -119,17 +119,17 @@
                 app:srcCompat="@android:drawable/ic_menu_share" />
 
             <TextView
-                android:id="@+id/profile_body_localisation_content"
+                android:id="@+id/profile_body_adresse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                app:layout_constraintLeft_toRightOf="@+id/profile_body_localisation_icon"
-                app:layout_constraintTop_toTopOf="@+id/profile_body_localisation_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/profile_body_localisation_icon"
+                app:layout_constraintLeft_toRightOf="@+id/profile_body_adresse_icon"
+                app:layout_constraintTop_toTopOf="@+id/profile_body_adresse_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_body_adresse_icon"
                 tools:text="azpoieufdhpizeufghzzaefzef"/>
 
             <TextView
-                android:id="@+id/profile_body_phone_content"
+                android:id="@+id/profile_body_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"

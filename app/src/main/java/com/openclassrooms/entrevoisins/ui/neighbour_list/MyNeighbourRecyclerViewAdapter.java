@@ -1,5 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,9 +27,11 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
+    private Context mContext;
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, Context context) {
         mNeighbours = items;
+        mContext = context;
     }
 
     @Override
@@ -52,10 +56,16 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
             }
         });
-        holder.profileLayout.setOnClickListener(new View.OnClickListener() {
+        holder.mProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileNeighbourActivity.navigateToProfile(v.getContext());
+                Intent intent = new Intent(mContext, ProfileNeighbourActivity.class);
+                intent.putExtra("neighbour_url", neighbour.getAvatarUrl());
+                intent.putExtra("neighbour_name", neighbour.getName());
+                intent.putExtra("neighbour_adresse", neighbour.getAddress());
+                intent.putExtra("neighbour_phone", neighbour.getPhoneNumber());
+                intent.putExtra("neighbour_aboutMe", neighbour.getAboutMe());
+                mContext.startActivity(intent);
             }
         });
     }
@@ -72,11 +82,11 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         public TextView mNeighbourName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
-        ConstraintLayout profileLayout;
+        @BindView(R.id.neighbourSelection)
+        public ConstraintLayout mProfileLayout;
 
         public ViewHolder(View view) {
             super(view);
-            profileLayout = view.findViewById(R.id.neighbourSelection);
             ButterKnife.bind(this, view);
         }
     }
