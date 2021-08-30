@@ -25,7 +25,7 @@ public class Neighbour {
     /** About me */
     private String aboutMe;
 
-    private long favoriteStatus;
+    boolean favoriteStatus;
 
     /**
      * Constructor
@@ -34,7 +34,7 @@ public class Neighbour {
      * @param avatarUrl
      */
     public Neighbour(long id, String name, String avatarUrl, String address,
-                     String phoneNumber, String aboutMe,long favoriteStatus) {
+                     String phoneNumber, String aboutMe,boolean favoriteStatus) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
@@ -92,11 +92,11 @@ public class Neighbour {
         this.aboutMe = aboutMe;
     }
 
-    public long getFavoriteStatus() {
+    public boolean getFavoriteStatus() {
         return favoriteStatus;
     }
 
-    public void setFavoriteStatus(long favoriteStatus) {
+    public void setFavoriteStatus(boolean favoriteStatus) {
         this.favoriteStatus = favoriteStatus;
     }
 

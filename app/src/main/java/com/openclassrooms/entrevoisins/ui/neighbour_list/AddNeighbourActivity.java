@@ -40,7 +40,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
 
     private NeighbourApiService mApiService;
     private String mNeighbourImage;
-
+    private boolean mStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +81,6 @@ public class AddNeighbourActivity extends AppCompatActivity {
 
     @OnClick(R.id.create)
     void addNeighbour() {
-        long favoriteStatus = 0;
 
         Neighbour neighbour = new Neighbour(
                 System.currentTimeMillis(),
@@ -90,7 +89,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
                 addressInput.getEditText().getText().toString(),
                 phoneInput.getEditText().getText().toString(),
                 aboutMeInput.getEditText().getText().toString(),
-                favoriteStatus
+                mStatus
         );
         mApiService.createNeighbour(neighbour);
         finish();
