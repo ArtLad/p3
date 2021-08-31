@@ -3,6 +3,7 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +24,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-    private Context mContext;
 
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, Context context) {
         mNeighbours = items;
-        mContext = context;
     }
 
     @Override
@@ -59,14 +59,9 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.mProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProfileNeighbourActivity.class);
-                intent.putExtra("neighbour_url", neighbour.getAvatarUrl());
-                intent.putExtra("neighbour_name", neighbour.getName());
-                intent.putExtra("neighbour_adresse", neighbour.getAddress());
-                intent.putExtra("neighbour_phone", neighbour.getPhoneNumber());
-                intent.putExtra("neighbour_aboutMe", neighbour.getAboutMe());
-                intent.putExtra("neighbour_status", neighbour.getFavoriteStatus());
-                mContext.startActivity(intent);
+                Intent intent = new Intent(holder.mNeighbourAvatar.getContext(), ProfileNeighbourActivity.class);
+                intent.putExtra("neighbour_data", neighbour);
+                holder.mNeighbourAvatar.getContext().startActivity(intent);
             }
         });
     }

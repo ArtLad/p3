@@ -1,109 +1,83 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
-import butterknife.OnClick;
+import butterknife.BindView;
 
 public class ProfileNeighbourActivity extends AppCompatActivity {
+
+    Neighbour neighbour;
+
+    @BindView(R.id.profile_header_name)
+    public TextView tHeaderName;
+    @BindView(R.id.profile_body_name)
+    public TextView tBodyName;
+    @BindView(R.id.profile_header_avatar)
+    public ImageView iAvatarUrl;
+    @BindView(R.id.profile_body_adresse)
+    public TextView tAdresse;
+    @BindView(R.id.profile_body_phone)
+    public TextView tPhone;
+    @BindView(R.id.profile_bio_corpus)
+    public TextView tAboutMe;
+    @BindView(R.id.profile_favorite_button)
+    public FloatingActionButton fFavoriteStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_neighbour);
 
-        getData();
-    }
+        if (getIntent().hasExtra("neighbour_data")) {
+            neighbour = getIntent().getParcelableExtra("neighbour_data");
 
-    private void getData() {
+            long id = neighbour.getId();
+            boolean favoriteStatus = neighbour.isFavoriteStatus();
 
-        if(getIntent().hasExtra("neighbour_url") && getIntent().hasExtra("neighbour_name") &&
-                getIntent().hasExtra("neighbour_adresse") && getIntent().hasExtra("neighbour_phone") &&
-                getIntent().hasExtra("neighbour_aboutMe") && getIntent().hasExtra("neighbour_status")){
-
-            String neighbourUrl = getIntent().getStringExtra("neighbour_url");
-            String neighbourName = getIntent().getStringExtra("neighbour_name");
-            String neighbourAdresse = getIntent().getStringExtra("neighbour_adresse");
-            String neighbourPhone = getIntent().getStringExtra("neighbour_phone");
-            String neighbourAboutMe = getIntent().getStringExtra("neighbour_aboutMe");
-            String neighbourMedia = getString(R.string.social, neighbourName);
-            Boolean neighbourStatus = getIntent().getBooleanExtra("neighbour_status", false);
-
-
-
-            setData(neighbourUrl, neighbourName, neighbourAdresse,
-                    neighbourPhone, neighbourAboutMe, neighbourMedia, neighbourStatus);
-        }
-        else Toast.makeText(this, "No data..", Toast.LENGTH_LONG).show();
-    }
-
-    private void setData(String neighbourUrl, String neighbourName, String neighbourAdresse,
-                         String neighbourPhone, String neighbourAboutMe, String neighbourMedia,
-                         Boolean neighbourStatus) {
-
-        ImageView headerAvatar = findViewById(R.id.profile_header_avatar);
-        Glide.with(this)
-                .asBitmap()
-                .load(neighbourUrl)
-                .into(headerAvatar);
-        TextView headerName = findViewById(R.id.profile_header_name);
-        headerName.setText(neighbourName);
-        TextView bodyName = findViewById(R.id.profile_body_name);
-        bodyName.setText(neighbourName);
-        TextView bodyAdresse = findViewById(R.id.profile_body_adresse);
-        bodyAdresse.setText(neighbourAdresse);
-        TextView bodyPhone = findViewById(R.id.profile_body_phone);
-        bodyPhone.setText(neighbourPhone);
-        TextView bioAboutMe = findViewById(R.id.profile_bio_corpus);
-        bioAboutMe.setText(neighbourAboutMe);
-        TextView bodyMedia = findViewById(R.id.profile_body_sociale_content);
-        bodyMedia.setText(neighbourMedia);
-        FloatingActionButton statusCheck = findViewById(R.id.profile_favorite_button);
-        if (!neighbourStatus) {
+            tHeaderName.setText(neighbour.getName());
+            tBodyName.setText(neighbour.getName());
+            Glide.with(this)
+                    .asBitmap()
+                    .load(neighbour.getAvatarUrl())
+                    .into(iAvatarUrl);
+            tAdresse.setText(neighbour.getAddress());
+            tPhone.setText(neighbour.getPhoneNumber());
+            tAboutMe.setText(neighbour.getAboutMe());
             Glide.with(this)
                     .asBitmap()
                     .load(R.drawable.ic_star_border_white_24dp)
-                    .into(statusCheck);
-        }else
-            Glide.with(this)
-                    .asBitmap()
-                    .load(R.drawable.ic_star_white_24dp)
-                    .into(statusCheck);
+                    .into(fFavoriteStatus);
+
+            fFavoriteStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!favoriteStatus) {
+                        Glide.with(fFavoriteStatus)
+                                .asBitmap()
+                                .load(R.drawable.ic_star_white_24dp)
+                                .into(fFavoriteStatus);
+                        neighbour.setFavoriteStatus(true);
+
+                    } else {
+                        Glide.with(fFavoriteStatus)
+                                .asBitmap()
+                                .load(R.drawable.ic_star_border_white_24dp)
+                                .into(fFavoriteStatus);
+                        neighbour.setFavoriteStatus(false);
+                    }
+                    neighbour.setFavoriteStatus(favoriteStatus);
+                }
+            });
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

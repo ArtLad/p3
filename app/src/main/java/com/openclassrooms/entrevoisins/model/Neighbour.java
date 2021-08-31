@@ -1,38 +1,36 @@
 package com.openclassrooms.entrevoisins.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
-/**
- * Model object representing a Neighbour
- */
-public class Neighbour {
+public class Neighbour implements Parcelable {
 
-    /** Identifier */
+    public static final Creator<Neighbour> CREATOR = new Creator<Neighbour>() {
+        @Override
+        public Neighbour createFromParcel(Parcel in) {
+            return new Neighbour(in);
+        }
+
+        @Override
+        public Neighbour[] newArray(int size) {
+            return new Neighbour[size];
+        }
+    };
+
+    public static Creator<Neighbour> getCREATOR() {
+        return CREATOR;
+    }
+
     private long id;
-
-    /** Full name */
     private String name;
-
-    /** Avatar */
     private String avatarUrl;
-
-    /** Adress */
     private String address;
-
-    /** Phone number */
     private String phoneNumber;
-
-    /** About me */
     private String aboutMe;
-
     boolean favoriteStatus;
 
-    /**
-     * Constructor
-     * @param id
-     * @param name
-     * @param avatarUrl
-     */
     public Neighbour(long id, String name, String avatarUrl, String address,
                      String phoneNumber, String aboutMe,boolean favoriteStatus) {
         this.id = id;
@@ -44,55 +42,42 @@ public class Neighbour {
         this.favoriteStatus = favoriteStatus;
     }
 
-    public long getId() {
-        return id;
+    protected Neighbour(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        avatarUrl = in.readString();
+        address = in.readString();
+        phoneNumber = in.readString();
+        aboutMe = in.readString();
+        favoriteStatus = in.readByte() != 0;
     }
 
-    public void setId(long id) {
-        this.id = id;
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getAvatarUrl() {
         return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getAboutMe() {
         return aboutMe;
     }
 
-    public void setAboutMe(String aboutMe) {
-        this.aboutMe = aboutMe;
-    }
-
-    public boolean getFavoriteStatus() {
+    public boolean isFavoriteStatus() {
         return favoriteStatus;
     }
 
@@ -101,15 +86,19 @@ public class Neighbour {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Neighbour neighbour = (Neighbour) o;
-        return Objects.equals(id, neighbour.id);
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeString(avatarUrl);
+        dest.writeString(address);
+        dest.writeString(phoneNumber);
+        dest.writeString(aboutMe);
+        dest.writeByte((byte) (favoriteStatus ? 1 : 0));
     }
+
 }
