@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 public class ProfileNeighbourActivity extends AppCompatActivity {
 
     Neighbour neighbour;
-    NeighbourApiService mApiService = DI.getNeighbourApiService();
+    NeighbourApiService mApiService;
 
     @BindView(R.id.profile_header_name)
     public TextView tHeaderName;
@@ -41,6 +41,8 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_neighbour);
         ButterKnife.bind(this);
 
+        mApiService = DI.getNeighbourApiService();
+
         if (getIntent().hasExtra("neighbour_data")) {
             neighbour = getIntent().getParcelableExtra("neighbour_data");
 
@@ -53,6 +55,7 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
             tAdresse.setText(neighbour.getAddress());
             tPhone.setText(neighbour.getPhoneNumber());
             tAboutMe.setText(neighbour.getAboutMe());
+
             fFavoriteStatus.setImageResource(neighbour.isFavoriteStatus() ?
                     R.drawable.ic_star_white_24dp : R.drawable.ic_star_border_white_24dp);
 

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class DummyNeighbourApiService implements  NeighbourApiService {
 
-    private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
+    private final List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
 
 
     /**
@@ -40,10 +40,10 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     @Override
     public void setFavoriteStatus(long id, boolean status) {
         for (Neighbour n : neighbours) {
-            if ( n.getId() == id )
+            if ( n.getId() == id ) {
                 n.setFavoriteStatus(status);
                 return;
-
+            }
         }
     }
 }
