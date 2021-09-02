@@ -1,17 +1,15 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import butterknife.BindView;
@@ -20,7 +18,7 @@ import butterknife.ButterKnife;
 public class ProfileNeighbourActivity extends AppCompatActivity {
 
     Neighbour neighbour;
-    NeighbourApiService mApiService;
+    NeighbourApiService mApiService = DI.getNeighbourApiService();
 
     @BindView(R.id.profile_header_name)
     public TextView tHeaderName;
@@ -46,8 +44,6 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
         if (getIntent().hasExtra("neighbour_data")) {
             neighbour = getIntent().getParcelableExtra("neighbour_data");
 
-            long id = neighbour.getId();
-
             tHeaderName.setText(neighbour.getName());
             tBodyName.setText(neighbour.getName());
             Glide.with(this)
@@ -57,18 +53,18 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
             tAdresse.setText(neighbour.getAddress());
             tPhone.setText(neighbour.getPhoneNumber());
             tAboutMe.setText(neighbour.getAboutMe());
-            fFavoriteStatus.setImageResource(R.drawable.ic_star_border_white_24dp);
+            fFavoriteStatus.setImageResource(neighbour.isFavoriteStatus() ?
+                    R.drawable.ic_star_white_24dp : R.drawable.ic_star_border_white_24dp);
 
-            fFavoriteStatus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (neighbour.isFavoriteStatus()) {
-                        neighbour.setFavoriteStatus(false);
-                        fFavoriteStatus.setImageResource(R.drawable.ic_star_border_white_24dp);
-                    } else {
-                        neighbour.setFavoriteStatus(true);
-                        fFavoriteStatus.setImageResource(R.drawable.ic_star_white_24dp);
-                    }
+            fFavoriteStatus.setOnClickListener(v -> {
+                if (neighbour.isFavoriteStatus()) {
+                    neighbour.setFavoriteStatus(false);
+                    mApiService.setFavoriteStatus(neighbour.getId(), false);
+                    fFavoriteStatus.setImageResource(R.drawable.ic_star_border_white_24dp);
+                } else {
+                    neighbour.setFavoriteStatus(true);
+                    mApiService.setFavoriteStatus(neighbour.getId(), true);
+                    fFavoriteStatus.setImageResource(R.drawable.ic_star_white_24dp);
                 }
             });
         }

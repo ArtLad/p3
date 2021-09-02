@@ -27,4 +27,6 @@ public interface NeighbourApiService {
      * @param neighbour
      */
     void createNeighbour(Neighbour neighbour);
+
+    void setFavoriteStatus(long id, boolean status);
 }
