@@ -41,6 +41,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
     private NeighbourApiService mApiService;
     private String mNeighbourImage;
     private boolean mStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -3,32 +3,14 @@ package com.openclassrooms.entrevoisins.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Objects;
-
 public class Neighbour implements Parcelable {
 
-    public static final Creator<Neighbour> CREATOR = new Creator<Neighbour>() {
-        @Override
-        public Neighbour createFromParcel(Parcel in) {
-            return new Neighbour(in);
-        }
-
-        @Override
-        public Neighbour[] newArray(int size) {
-            return new Neighbour[size];
-        }
-    };
-
-    public static Creator<Neighbour> getCREATOR() {
-        return CREATOR;
-    }
-
-    private long id;
-    private String name;
-    private String avatarUrl;
-    private String address;
-    private String phoneNumber;
-    private String aboutMe;
+    private final long id;
+    private final String name;
+    private final String avatarUrl;
+    private final String address;
+    private final String phoneNumber;
+    private final String aboutMe;
     boolean favoriteStatus;
 
     public Neighbour(long id, String name, String avatarUrl, String address,
@@ -52,6 +34,18 @@ public class Neighbour implements Parcelable {
         favoriteStatus = in.readByte() != 0;
     }
 
+
+    public static final Creator<Neighbour> CREATOR = new Creator<Neighbour>() {
+        @Override
+        public Neighbour createFromParcel(Parcel in) {
+            return new Neighbour(in);
+        }
+
+        @Override
+        public Neighbour[] newArray(int size) {
+            return new Neighbour[size];
+        }
+    };
 
     public long getId() {
         return id;
