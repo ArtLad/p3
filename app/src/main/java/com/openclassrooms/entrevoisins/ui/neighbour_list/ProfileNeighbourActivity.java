@@ -1,8 +1,13 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,12 +19,15 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProfileNeighbourActivity extends AppCompatActivity {
 
     Neighbour neighbour;
     NeighbourApiService mApiService;
 
+    @BindView(R.id.profile_header_return)
+    public ImageButton iHeaderReturn;
     @BindView(R.id.profile_header_name)
     public TextView tHeaderName;
     @BindView(R.id.profile_body_name)
@@ -30,16 +38,21 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
     public TextView tAdresse;
     @BindView(R.id.profile_body_phone)
     public TextView tPhone;
+    @BindView(R.id.profile_body_sociale_content)
+    public TextView tSociale;
     @BindView(R.id.profile_bio_corpus)
     public TextView tAboutMe;
     @BindView(R.id.profile_favorite_button)
     public FloatingActionButton fFavoriteStatus;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_neighbour);
         ButterKnife.bind(this);
+
+        iHeaderReturn.setOnClickListener(v -> onBackPressed());
 
         mApiService = DI.getNeighbourApiService();
 
@@ -54,6 +67,7 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
                     .into(iAvatarUrl);
             tAdresse.setText(neighbour.getAddress());
             tPhone.setText(neighbour.getPhoneNumber());
+            tSociale.setText("www.facebook.com/"+ neighbour.getName());
             tAboutMe.setText(neighbour.getAboutMe());
 
             fFavoriteStatus.setImageResource(neighbour.isFavoriteStatus() ?

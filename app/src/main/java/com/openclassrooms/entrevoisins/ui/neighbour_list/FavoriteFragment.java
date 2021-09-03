@@ -1,6 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-public class FavoriteFragment extends NeighbourFragment implements FragmentTab {
+public class FavoriteFragment extends NeighbourFragment {
 
     @Override
     public void initList() {

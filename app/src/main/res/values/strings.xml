@@ -4,5 +4,5 @@
     <string name="tab_favorites_title">Favorites</string>
     <string name="activity_new_neighbour">New neighbour</string>
     <string name="about_me">About Me</string>
-    <string name="social">www.facebook.fr/%1$s </string>
+    <string name="social">www.facebook.fr/ </string>
 </resources>

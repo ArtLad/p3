@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
-public class NeighbourFragment extends Fragment implements FragmentTab {
+public class NeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
@@ -50,7 +50,6 @@ public class NeighbourFragment extends Fragment implements FragmentTab {
         return view;
     }
 
-    @Override
     public void initList() {
         mNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, getContext()));
