@@ -16,9 +16,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -46,13 +49,28 @@ public class NeighboursListTest {
     }
 
     /**
-     * We ensure that our recyclerview is displaying at least on item
+     * When we click on a neighbour (from the list), this neighbour's profile layout is launched and displayed
      */
     @Test
-    public void myNeighboursList_shouldNotBeEmpty() {
-        // First scroll to the position that needs to be matched and click on it.
+    public void myNeighbourList_onClicItem_ShouldLaunchProfileNeighbour() {
+        //Given : When perform a click on an item from the neighbour's list
+        onView((ViewMatchers.withId(R.id.list_neighbours)))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        //Expected : The view matches the profile layout view
+        onView(ViewMatchers.withId(R.id.profile_header_name)).check(matches(withId(R.id.profile_header_name)));
+
+    }
+
+    /**
+     * When the neighbour's profile layout is launched, the neighbour's name TexView is not empty
+     */
+    @Test
+    public void myNeighbourProfile_onDisplay_neighbourNameIsNotEmpty() {
         onView(ViewMatchers.withId(R.id.list_neighbours))
-                .check(matches(hasMinimumChildCount(1)));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.profile_header_name)).check(matches(withText("Caroline")));
+        onView(withId(R.id.profile_body_name)).check(matches(withText("Caroline")));
+
     }
 
     /**
@@ -68,4 +86,28 @@ public class NeighboursListTest {
         // Then : the number of element is 11
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
     }
+
+    /**
+     * We ensure that our recyclerview is displaying at least on item
+     */
+    @Test
+    public void myNeighboursFavoriteList_shouldOnlyHaveFavoriteNeighbours() {
+        // First scroll to the position that needs to be matched and click on it.
+        onView(ViewMatchers.withId(R.id.list_neighbours))
+                .check(matches(hasMinimumChildCount(1)));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
