@@ -75,7 +75,7 @@ public class Neighbour implements Parcelable {
         return favoriteStatus;
     }
 
-    public void setFavoriteStatus(boolean favoriteStatus) {
+    public void setNeighbourFavoriteStatus(boolean favoriteStatus) {
         this.favoriteStatus = favoriteStatus;
     }
 

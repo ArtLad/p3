@@ -1,12 +1,9 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +16,6 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ProfileNeighbourActivity extends AppCompatActivity {
 
@@ -75,11 +71,11 @@ public class ProfileNeighbourActivity extends AppCompatActivity {
 
             fFavoriteStatus.setOnClickListener(v -> {
                 if (neighbour.isFavoriteStatus()) {
-                    neighbour.setFavoriteStatus(false);
+                    neighbour.setNeighbourFavoriteStatus(false);
                     mApiService.setFavoriteStatus(neighbour.getId(), false);
                     fFavoriteStatus.setImageResource(R.drawable.ic_star_border_white_24dp);
                 } else {
-                    neighbour.setFavoriteStatus(true);
+                    neighbour.setNeighbourFavoriteStatus(true);
                     mApiService.setFavoriteStatus(neighbour.getId(), true);
                     fFavoriteStatus.setImageResource(R.drawable.ic_star_white_24dp);
                 }
