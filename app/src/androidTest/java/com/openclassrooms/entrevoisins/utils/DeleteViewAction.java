@@ -13,9 +13,7 @@ public class DeleteViewAction implements ViewAction {
     }
 
     @Override
-    public String getDescription() {
-        return "Click on specific button";
-    }
+    public String getDescription() { return "Click on specific button"; }
 
     @Override
     public void perform(UiController uiController, View view) {

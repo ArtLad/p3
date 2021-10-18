@@ -19,7 +19,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
-import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
@@ -35,6 +34,7 @@ public class NeighboursListTest {
 
     // This is fixed
     private static int ITEMS_COUNT = 12;
+    private static int FAVORITE_COUNT = 0;
 
     private ListNeighbourActivity mActivity;
 
@@ -74,27 +74,30 @@ public class NeighboursListTest {
     }
 
     /**
-     * When we delete an item, the item is no more shown
+     * When we delete a neighbour, he is not shown anymore
      */
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
-        // Given : We remove the element at position 2
-        onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
-        // When perform a click on a delete icon
         onView(ViewMatchers.withId(R.id.list_neighbours))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
-        // Then : the number of element is 11
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteViewAction()));
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
     }
 
     /**
-     * We ensure that our recyclerview is displaying at least on item
+     * When a neighbour is checked as favorite, we check that the favorite list only contains neighbour's
+     * marked as favorite
      */
     @Test
-    public void myNeighboursFavoriteList_shouldOnlyHaveFavoriteNeighbours() {
-        // First scroll to the position that needs to be matched and click on it.
+    public void myNeighboursFavoriteList_shouldOnlyHaveFavoriteNeighbours() throws InterruptedException {
         onView(ViewMatchers.withId(R.id.list_neighbours))
-                .check(matches(hasMinimumChildCount(1)));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.profile_favorite_button));
+        // Thread.sleep sert à bypass une erreur d'espresso qui souhaite charger simulatanément une view et appuyer
+        // sur un bouton de cette view en même temps.
+        {Thread.sleep(1000);}
+        onView(withId(R.id.profile_favorite_button)).perform(click());
+        onView(withId(R.id.profile_header_return)).perform(click());
+        onView(ViewMatchers.withId(R.id.favorite_list_neighbours)).check(withItemCount(FAVORITE_COUNT+1));
     }
 }
 
