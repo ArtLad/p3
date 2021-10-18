@@ -20,4 +20,4 @@ If you have any issues building the application it maybe because of a versionnin
 Make also sure to not have any other instances of emulators running at Run as it can prevent gradle from completing it's build process.
 
 
-If you have any other issues or suggestions, feel free to contact me at the email provided.
+If you have any other issues or suggestions, feel free to contact me at the provided email.
