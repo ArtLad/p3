@@ -1,6 +1,8 @@
-# OpenClassrooms
+# Entrevoisins - Openclassrooms
 
-Ce dépôt contient une mini-application pour le P3 du parcours **Grande École du Numérique**.
+This is a mini study application from the **Grande École du Numérique** Android Developer's course provided by OpenClassrooms.
+
+It is the 3rd project of 10. For more informations: https://openclassrooms.com/fr/paths/168-developpeur-dapplication-android
 
 Contact Info: art.laplace@gmail.com
 
